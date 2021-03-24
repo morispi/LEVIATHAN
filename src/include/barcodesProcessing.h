@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "robin_hood.h"
-#include "indexManagement.h"
+#include "indexManagementBam.h"
 #include "misc.h"
 
 using namespace std;
