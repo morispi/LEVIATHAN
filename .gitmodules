@@ -1,3 +1,6 @@
 [submodule "LRez"]
 	path = LRez
 	url = https://github.com/morispi/LRez
+[submodule "CTPL"]
+	path = CTPL
+	url = https://github.com/vit-vit/CTPL/
