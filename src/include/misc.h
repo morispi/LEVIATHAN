@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "api/BamAlignment.h"
-#include "indexManagement.h"
+#include "indexManagementBam.h"
 #include "SVSupports.h"
 
 struct Thresholds {
