@@ -1,0 +1,3 @@
+[submodule "LRez"]
+	path = LRez
+	url = https://github.com/morispi/LRez
