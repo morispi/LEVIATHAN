@@ -4,7 +4,6 @@
 #include "globalVariables.h"
 #include "alignmentsProcessing.h"
 #include "supportComputation.h"
-#include "localAssembly.h"
 #include <chrono>
 
 using namespace std::chrono;
