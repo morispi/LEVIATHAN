@@ -31,7 +31,7 @@ void printHelp() {
 	printf("\t-p, --poolSize:           Size of the thread pool (default: 100000)\n");
 	printf("\t-B, --nbBins:             Number of iterations to perform through the barcode index (default: 10)\n");
 	printf("\t-c, --minBarcodes:        Always remove candidates that share less than this number of barcodes (default: 1)\n");
-	printf("\t-C, --candidates:        	File where to store valid SV candidates (default: "candidates")\n");
+	printf("\t-C, --candidates:        	File where to store valid SV candidates (default: \"candidates\")\n");
 
 	exit(EXIT_FAILURE);
 }
