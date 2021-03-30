@@ -71,6 +71,7 @@ int main(int argc, char* argv[]) {
 		{"poolSize",			required_argument,	0, 'p'},
 		{"nbBins",				required_argument,	0, 'B'},
 		{"minBarcodes",			required_argument,	0, 'c'},
+		{"validCandidates",		required_argument,  0,  'C'},
 		{0, 0, 0, 0},
 	};
 	int index;
@@ -133,6 +134,9 @@ int main(int argc, char* argv[]) {
 			case 'c':
 				minBarcodes = stoul(optarg);
 				break;
+			case 'C':
+				validCandidatesFile = optarg;
+				break;
 			default:
 				printHelp();
 				break;
@@ -144,8 +148,6 @@ int main(int argc, char* argv[]) {
 		fprintf(stderr, "Please provide valid input files with options -b, -i, -g and -o.\n");
 		exit(EXIT_FAILURE);
 	}
-
-	cerr << "largeVariantsRate : " << largeVariantsRate << endl;
 
 	for (int i = 0; i < argc; i++) {
 		cmdLine = cmdLine + argv[i] + " ";
@@ -176,7 +178,7 @@ int main(int argc, char* argv[]) {
 		// removeCandidatesRegionsLinks(candidates, maxRegionsLinks);
 		
 		cerr << "Saving all SV candidates to file " << validCandidatesFile << endl;
-		// saveSVCandidates(validCandidatesFile, candidates);
+		saveSVCandidates(validCandidatesFile, candidates);
 
 		barcodesPositionsIndex.clear();
 	} else {
@@ -187,17 +189,13 @@ int main(int argc, char* argv[]) {
 
 	// Analyze alignments of valid candidates
 	cerr << "Number of valid SV candidates to consider : " << totalCandidates << endl;
-	cerr << candidates.size() << endl;
 	robin_hood::unordered_map<pair<string*, string*>, SVSupports, hashPointersPairs> calledSVs = processCandidates(nbThreads, candidates, bamFile);
 	candidates.clear();
-
-	cerr << "Called SVs : " << calledSVs.size() << endl;
 
 	robin_hood::unordered_set<StructuralVariant> finalSVs = validatesSVs(calledSVs);
 
 	cerr << "Output " << finalSVs.size() << " SVs" << endl;
-	// outputSVsAsVCF(finalSVs, cmdLine, refGenome);
-	outputSVsAsBed(finalSVs);
+	outputSVsAsVCF(finalSVs, cmdLine, refGenome, outputFile);
 
 	return EXIT_SUCCESS;
 }
