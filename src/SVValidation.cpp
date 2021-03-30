@@ -74,22 +74,6 @@ robin_hood::unordered_set<StructuralVariant> validatesSVs(robin_hood::unordered_
 				}
 				if (!isPresent(finalSVs, s, duplicatesDistance)) {
 					finalSVs.insert(s);
-				
-					cerr << *(sv.first.first) << " " << *(sv.first.second) << endl;
-					cerr << "Alignments in region 1 : " << sv.second.alignments1 << endl;
-					cerr << "Alignments in region 2 : " << sv.second.alignments2 << endl;
-					cerr << "Barcodes : " << sv.second.barcodes << endl;
-					cerr << "Deletion : " << sv.second.deletion << endl;
-					cerr << "Duplication : " << sv.second.duplication << endl;
-					cerr << "Inversion : " << sv.second.inversion << endl;
-					cerr << "Insertion : " << sv.second.insertion << endl;
-					cerr << "Translocation : " << sv.second.translocation << endl;
-					cerr << "Breakpoint1 : " << sv.second.breakpoint1 << endl;
-					cerr << "Breakpoint2 : " << sv.second.breakpoint2 << endl;
-					cerr << "Support1 : " << sv.second.support1 << endl;
-					cerr << "Support2 : " << sv.second.support2 << endl;
-					cerr << sv.second.splitReads << endl;
-					cerr << endl;
 					consideredBreakpoints.insert(make_pair(s1, sv.second.breakpoint1));
 					consideredBreakpoints.insert(make_pair(s2, sv.second.breakpoint2));
 				}
