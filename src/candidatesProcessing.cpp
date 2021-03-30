@@ -9,21 +9,22 @@
 using namespace std::chrono;
 
 vector<pair<pair<string*, string*>, SVSupports>> processCandidate(int id, pair<string*, robin_hood::unordered_map<string*, unsigned>>& candidate, string& bamFile) {
-	auto start = high_resolution_clock::now();
 
 	vector<pair<pair<string*, string*>, SVSupports>> res;
 
 	// Start positions and arrays for breakpoints computation
     int32_t begR1 = regionBegPosition(*(candidate.first)) - windowSize;
 
-    unsigned posSupportRegion1[3 * windowSize];
-	// for (unsigned i = 0; i < 3 * windowSize; i++) {
-	// 	posSupportRegion1[i] = 0;
-	// }
+    // unsigned posSupportRegion1[3 * windowSize];
+    unsigned* posSupportRegion1 = new unsigned[3 * windowSize];
+	for (unsigned i = 0; i < 3 * windowSize; i++) {
+		posSupportRegion1[i] = 0;
+	}
 
 	pair<robin_hood::unordered_set<string>, vector<BamAlignment>> hr = extractAlignmentsAndHeadersFromRegion(bamFile, *(candidate.first), 0);
 	robin_hood::unordered_set<string> headers1 = hr.first;
 	vector<BamAlignment> alignments1 = hr.second;
+	unsigned* posSupportRegion2 = new unsigned[3 * windowSize];
 
 	for (auto p : candidate.second) {
 		for (unsigned i = 0; i < 3 * windowSize; i++) {
@@ -34,7 +35,7 @@ vector<pair<pair<string*, string*>, SVSupports>> processCandidate(int id, pair<s
 
 		int32_t begR2 = regionBegPosition(*(p.first)) - windowSize;
 
-		unsigned posSupportRegion2[3 * windowSize];
+		// unsigned posSupportRegion2[3 * windowSize];
 		for (unsigned i = 0; i < 3 * windowSize; i++) {
 			posSupportRegion2[i] = 0;
 		}
@@ -112,10 +113,8 @@ vector<pair<pair<string*, string*>, SVSupports>> processCandidate(int id, pair<s
 			countMtx.unlock();
 	}
 
-	auto end = high_resolution_clock::now();
-
-	auto duration = duration_cast<milliseconds>(end - start);
-	// cerr << "Processing : " << *(candidate.first) << " (" << candidate.second.size() << " links) took : " << duration.count() << " ms" << endl;
+	delete[] posSupportRegion1;
+	delete[] posSupportRegion2;
 
 	return res;
 }
@@ -189,10 +188,6 @@ void removeInvalidCandidates(robin_hood::unordered_map<string*, robin_hood::unor
 	robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> filteredCandidates;
 	robin_hood::unordered_map<string*, unsigned> regionsLinks;
 
-	unsigned small = 0;
-	unsigned medium = 0;
-	unsigned large = 0;
-
  	// Remove candidates that do not have enough support
 	for (auto p : candidates) {
     	pair<string, int32_t> chrBeg1 = regionChrAndBegPosition(*(p.first));
@@ -207,22 +202,18 @@ void removeInvalidCandidates(robin_hood::unordered_map<string*, robin_hood::unor
 				filteredCandidates[p.first][pp.first] += pp.second;
 				regionsLinks[p.first]++;
 				regionsLinks[pp.first]++;
-				large++;
         	} else if (chr1 == chr2 and abs(beg2 - beg1) <= mediumVariantsSize and pp.second >= th.closeTh) {
 				filteredCandidates[p.first][pp.first] += pp.second;
 				regionsLinks[p.first]++;
 				regionsLinks[pp.first]++;
-				small++;
         	} else if (chr1 == chr2 and abs(beg2 - beg1) > mediumVariantsSize and abs(beg2 - beg1) <= largeVariantsSize and pp.second >= th.averageTh) {
         		filteredCandidates[p.first][pp.first] += pp.second;
         		regionsLinks[p.first]++;
 				regionsLinks[pp.first]++;
-				medium++;
         	} else if (chr1 == chr2 and abs(beg2 - beg1) > largeVariantsSize and pp.second >= th.farTh) {
         		filteredCandidates[p.first][pp.first] += pp.second;
         		regionsLinks[p.first]++;
 				regionsLinks[pp.first]++;
-				large++;
         	}
 		}
 	}
@@ -231,9 +222,7 @@ void removeInvalidCandidates(robin_hood::unordered_map<string*, robin_hood::unor
 	candidates.clear();
 
 	// Remove regions that share similarities with too many other regions
-	unsigned addedLinks;
 	for (auto p : filteredCandidates) {
-		addedLinks = 0;
 		if (regionsLinks[p.first] < maxRegionsLinks) {
 			robin_hood::unordered_map<string*, unsigned> l;
 			for (auto pp : p.second) {
@@ -255,14 +244,8 @@ void removeInvalidCandidates(robin_hood::unordered_map<string*, robin_hood::unor
 	robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> filteredCandidates;
 	robin_hood::unordered_map<string*, unsigned> regionsLinks;
 
-	unsigned small = 0;
-	unsigned medium = 0;
-	unsigned large = 0;
-
 	// Remove regions that share similarities with too many other regions
-	unsigned addedLinks;
 	for (auto p : candidates) {
-		addedLinks = 0;
 		if (regionsLinks[p.first] < maxRegionsLinks) {
 			robin_hood::unordered_map<string*, unsigned> l;
 			for (auto pp : p.second) {
