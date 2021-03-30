@@ -56,11 +56,12 @@ To run LEVIATHAN, run the following command:
       -p, --poolSize:           Size of the thread pool (default: 100000)
       -B, --nbBins:             Number of iterations to perform through the barcode index (default: 10)
       -c, --minBarcodes:        Always remove candidates that share less than this number of barcodes (default: 1)
+      -C, --candidates:         File where to store valid SV candidates (default: "candidates") 
 
 Notes
 --------------
 
-LRez has been developed and tested on x86-64 GNU/Linux.          
+LEVIATHAN has been developed and tested on x86-64 GNU/Linux.          
 Support for any other platform has not been tested.
 
 Authors
@@ -71,7 +72,7 @@ Pierre Morisse, Fabrice Legeai and Claire Lemaitre.
 Reference
 --------------
 
-Coming soon.
+Pierre Morisse, Fabrice Legeai, Claire Lemaitre. LEVIATHAN: efficient discovery of large structural variants by leveraging long-range information from Linked-Reads data. https://doi.org/10.1101/2021.03.25.437002
 
 Contact
 --------------
