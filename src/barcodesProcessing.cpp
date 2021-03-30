@@ -163,17 +163,17 @@ Thresholds analyzeDistribution(robin_hood::unordered_map<string*, robin_hood::un
     }
     maxSupp++;
 
-    unsigned closeDist[maxSupp];
+    unsigned* closeDist = new unsigned[maxSupp];
     for (unsigned i = 0; i < maxSupp; i++) {
         closeDist[i] = 0;
     }
 
-    unsigned averageDist[maxSupp];
+    unsigned* averageDist = new unsigned[maxSupp];
     for (unsigned i = 0; i < maxSupp; i++) {
         averageDist[i] = 0;
     }
 
-    unsigned farDist[maxSupp];
+    unsigned* farDist = new unsigned[maxSupp];
     for (unsigned i = 0; i < maxSupp; i++) {
         farDist[i] = 0;
     }
@@ -247,6 +247,10 @@ Thresholds analyzeDistribution(robin_hood::unordered_map<string*, robin_hood::un
     th.closeTh = closeTh;
     th.averageTh = averageTh;
     th.farTh = farTh;
+
+    delete[] closeDist;
+    delete[] averageDist;
+    delete[] farDist;
 
     return th;
 }
