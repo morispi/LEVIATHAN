@@ -227,10 +227,6 @@ void removeInvalidCandidates(robin_hood::unordered_map<string*, robin_hood::unor
 		}
 	}
 
-	cerr << "small : " << small << endl;
-	cerr << "medium : " << medium << endl;
-	cerr << "large : " << large << endl;
-
 	// candidates = filteredCandidates;
 	candidates.clear();
 
