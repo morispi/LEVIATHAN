@@ -15,7 +15,6 @@ vector<pair<pair<string*, string*>, SVSupports>> processCandidate(int id, pair<s
 	// Start positions and arrays for breakpoints computation
     int32_t begR1 = regionBegPosition(*(candidate.first)) - windowSize;
 
-    // unsigned posSupportRegion1[3 * windowSize];
     unsigned* posSupportRegion1 = new unsigned[3 * windowSize];
 	for (unsigned i = 0; i < 3 * windowSize; i++) {
 		posSupportRegion1[i] = 0;
@@ -34,8 +33,7 @@ vector<pair<pair<string*, string*>, SVSupports>> processCandidate(int id, pair<s
 		SVSupports support;
 
 		int32_t begR2 = regionBegPosition(*(p.first)) - windowSize;
-
-		// unsigned posSupportRegion2[3 * windowSize];
+		
 		for (unsigned i = 0; i < 3 * windowSize; i++) {
 			posSupportRegion2[i] = 0;
 		}
