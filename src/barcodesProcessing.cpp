@@ -214,57 +214,39 @@ Thresholds analyzeDistribution(robin_hood::unordered_map<string*, robin_hood::un
     while (closeTh < maxSupp and closeDist[closeTh] == 0) {
         closeTh++;
     }
-    cerr << "closeTh : " << closeTh << endl;
     unsigned long totalSupp = closeDist[closeTh];
     closeTh++;
     while (closeTh < maxSupp and ((double) totalSupp / totalSuppClose) * 100 < smallVariantsRate) {
     	totalSupp += closeDist[closeTh];
     	closeTh++;
     }
-    cerr << totalSupp << endl;
-    cerr << totalSuppClose << endl;
-    cerr << ((double) totalSupp / totalSuppClose) * 100 << endl;
 
     unsigned averageTh = 1;
     while (averageTh < maxSupp and averageDist[averageTh] == 0) {
         averageTh++;
     }
-    cerr << "averageTh : " << averageTh << endl;
     totalSupp = averageDist[averageTh];
     averageTh++;
     while (averageTh < maxSupp and ((double) totalSupp / totalSuppAverage) * 100 < mediumVariantsRate) {
     	totalSupp += averageDist[averageTh];
     	averageTh++;
     }
-    cerr << totalSupp << endl;
-    cerr << totalSuppAverage << endl;
-    cerr << ((double) totalSupp / totalSuppAverage) * 100 << endl;
 
     unsigned farTh = 1;
     while (farTh < maxSupp and farDist[farTh] == 0) {
         farTh++;
     }
-    cerr << "farTh : " << farTh << endl;
     totalSupp = farDist[farTh];
     farTh++;
     while (farTh < maxSupp and ((double) totalSupp / totalSuppFar) * 100 < largeVariantsRate) {
     	totalSupp += farDist[farTh];
     	farTh++;
     }
-    cerr << totalSupp << endl;
-    cerr << totalSuppFar << endl;
-    cerr << ((double) totalSupp / totalSuppFar) * 100 << endl;
 
     Thresholds th;
     th.closeTh = closeTh;
     th.averageTh = averageTh;
     th.farTh = farTh;
-    // th.farTh = 1;
-
-    cerr << "maxSupp : " << maxSupp << endl;
-    cerr << "close : " << closeTh << endl;
-    cerr << "average : " << averageTh << endl;
-    cerr << "far : " << farTh << endl;
 
     return th;
 }
