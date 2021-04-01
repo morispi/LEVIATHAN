@@ -148,9 +148,6 @@ robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>>
 		cerr << endl;
 	}
 
-	cerr << "pairs with one barcode : " << pairsWithOneBarcode << endl;
-	cerr << "pairs with more barcodes : " << pairsWithMoreBarcodes << endl;
-
 	return candidates;
 }
 
