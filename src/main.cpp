@@ -39,9 +39,9 @@ int main(int argc, char* argv[]) {
 	mediumVariantsSize = 2000;
 	largeVariantsSize = 10000;
 
-	smallVariantsRate = 98;
+	smallVariantsRate = 99;
 	mediumVariantsRate = 99;
-	largeVariantsRate = 99.9;
+	largeVariantsRate = 99;
 
 	duplicatesDistance = 10;
 	poolSize = 100000;
@@ -173,11 +173,11 @@ int main(int argc, char* argv[]) {
 		Thresholds th = analyzeDistribution(candidates);	
 		
 		// TODO refaire le message
-		cerr << "Removing invalid candidates (regions pairs that share less than average number of barcodes and regions that are paired with more than " << maxRegionsLinks << " other regions)" << endl;
+		cerr << "Removing invalid candidates (regions pairs that share do not share a sufficient number of barcodes and regions that are paired with more than " << maxRegionsLinks << " other regions)" << endl;
 		removeInvalidCandidates(candidates, th, maxRegionsLinks);
 		// removeCandidatesRegionsLinks(candidates, maxRegionsLinks);
 		
-		cerr << "Saving all SV candidates to file " << validCandidatesFile << endl;
+		cerr << "Saving all SV candidates to file \"" << validCandidatesFile << "\"" << endl;
 		saveSVCandidates(validCandidatesFile, candidates);
 
 		barcodesPositionsIndex.clear();
