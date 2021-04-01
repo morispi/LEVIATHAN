@@ -32,13 +32,24 @@ The installation script will build all dependencies, and build and store the bin
 Running LEVIATHAN
 --------------
 
-To run LEVIATHAN, run the following command:
+1) Build LRez barcode index.
+
+Prior to running LEVIATHAN, the LRez barcode index of the BAM file has to be built. This can be done with the following command:
+
+`./LRez/bin/LRez index bam -p -b bamFile.bam -o barcodeIndex.bci`
+
+  - bamFile.bam:        BAM file to index. Warning: the associated .bai file must exist
+  - barcodeIndex.bci:   File where to store the LRez barcode index
+
+2) Run LEVIATHAN.
+
+Once the index is built, LEVIATHAN can then be run with the following command:
 
 `./bin/LEVIATHAN -b bamFile.bam -i barcodeIndex.bci -g genome.fasta -o output.vcf`
 
   - bamFile.bam:        BAM file to analyze. Warning: the associated .bai file must exist
-  - barcodeIndex.bci:   LRez barcode occurrence positions index of the BAM file
-  - genome.fasta:       The reference genome in FASTA format
+  - barcodeIndex.bci:   LRez barcode index of the BAM file
+  - genome.fasta:       Reference genome in FASTA format
   - output.vcf:         VCF file where to ouput the SVs
 
 ### Options
