@@ -9,6 +9,6 @@
 
 void outputSVsAsBed(robin_hood::unordered_set<StructuralVariant>& finalSVs);
 
-void outputSVsAsVCF(robin_hood::unordered_set<StructuralVariant>& finalSVs, string cmdLine, string reference);
+void outputSVsAsVCF(robin_hood::unordered_set<StructuralVariant>& finalSVs, string cmdLine, string reference, string outputFile);
 
 #endif
