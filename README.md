@@ -90,7 +90,7 @@ Once the index is built, LEVIATHAN can then be run with the following command:
       -p, --poolSize:           Size of the thread pool (default: 100000)
       -B, --nbBins:             Number of iterations to perform through the barcode index (default: 10)
       -c, --minBarcodes:        Always remove candidates that share less than this number of barcodes (default: 1)
-      -C, --candidates:         File where to store valid SV candidates (default: "candidates") 
+      -C, --candidates:         File where to store valid SV candidates (default: "candidates.bedpe") 
 
 Notes
 --------------
