@@ -7,6 +7,8 @@
 
 using namespace std;
 
+string twoBitsToString(bool b1, bool b2);
+
 vector<bool> fullstr2num(const string& str);
 
 string fullnum2str(vector<bool> num);

@@ -3,6 +3,22 @@
 #include "misc.h"
 #include "globalVariables.h"
 
+string twoBitsToString(bool b1, bool b2) {
+  if (b1) {
+    if (b2) {
+      return "T";
+    } else {
+      return "G";
+    }
+  } else {
+    if (b2) {
+      return "C";
+    } else {
+      return "A";
+    }
+  }
+}
+
 std::vector<bool> fullstr2num(const string& str) {
   std::vector<bool> res;
   for(uint i(0);i<str.size();i++){
