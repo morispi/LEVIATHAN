@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
 	unsigned maxRegionsLinks = 1000;
 	totalCandidates = 0;
 
-	string validCandidatesFile = "candidates";
+	string validCandidatesFile = "candidates.bedpe";
 	string cmdLine;
 
 
@@ -196,6 +196,10 @@ int main(int argc, char* argv[]) {
 
 	cerr << "Output " << finalSVs.size() << " SVs" << endl;
 	outputSVsAsVCF(finalSVs, cmdLine, refGenome, outputFile);
+
+	if (remove(validCandidatesFile.c_str()) != 0 ) {
+    	fprintf(stderr, "Error when deleting file %s.\n", validCandidatesFile.c_str());
+  	}
 
 	return EXIT_SUCCESS;
 }
