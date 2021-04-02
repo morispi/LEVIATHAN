@@ -44,7 +44,7 @@ To build the barcode index on the example dataset, run the following command:
 
 This should take about 2 seconds, and use 20 KB of RAM.
 
-### 2) Run LEVIATHAN.
+### 2) Run LEVIATHAN.
 
 To run LEVIATHAN, once the index is buiilt, run the following command:
 
