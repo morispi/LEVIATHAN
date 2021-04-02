@@ -28,6 +28,29 @@ Then run the install.sh script:
   ```
 
 The installation script will build all dependencies, and build and store the binary in the `bin` folder.
+
+Getting started
+--------------
+
+An example dataset (BAM and BAM.bai files, as well as reference genome) is provided in the `example` folder.
+
+Please run the following commands to try out LEVIATHAN on this example.
+
+### 1) Build LRez barcode index.
+
+To build the barcode index on the example dataset, run the following command:
+
+`./LRez/bin/LRez index bam -p -b example/example.bam -o example/barcodeIndex.bci`
+
+This should take about 2 seconds, and use 20 KB of RAM.
+
+### 2) Run LEVIATHAN.
+
+To run LEVIATHAN, once the index is buiilt, run the following command:
+
+`./bin/LEVIATHAN -b example/example.bam -i example/barcodeIndex.bci -g example/genome.fasta -o example/SV.vcf`
+
+This should take about 10 seconds, and use at most 100 KB of RAM, using 8 threads.
   
 Running LEVIATHAN
 --------------
