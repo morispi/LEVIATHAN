@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
 		{"poolSize",			required_argument,	0, 'p'},
 		{"nbBins",				required_argument,	0, 'B'},
 		{"minBarcodes",			required_argument,	0, 'c'},
-		{"validCandidates",		required_argument,  0,  'C'},
+		{"candidates",		required_argument,  0,  'C'},
 		{0, 0, 0, 0},
 	};
 	int index;
