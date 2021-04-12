@@ -77,7 +77,7 @@ int main(int argc, char* argv[]) {
 	int index;
 	int iarg = 0;
 
-	iarg = getopt_long(argc, argv, "b:i:g:r:v:n:M:L:s:m:l:o:d:t:p:B:c:", longopts, &index);
+	iarg = getopt_long(argc, argv, "b:i:g:r:v:n:M:L:s:m:l:o:d:t:p:B:c:C:", longopts, &index);
 	if (iarg == -1) {
 		printHelp();
 	}
@@ -141,7 +141,7 @@ int main(int argc, char* argv[]) {
 				printHelp();
 				break;
 		}
-		iarg = getopt_long(argc, argv, "b:i:g:r:v:n:M:L:s:m:l:o:d:t:p:B:c:", longopts, &index);
+		iarg = getopt_long(argc, argv, "b:i:g:r:v:n:M:L:s:m:l:o:d:t:p:B:c:C:", longopts, &index);
 	}
 
 	if (bamFile.empty() or indexFile.empty() or refGenome.empty() or outputFile.empty()) {
@@ -197,9 +197,9 @@ int main(int argc, char* argv[]) {
 	cerr << "Output " << finalSVs.size() << " SVs" << endl;
 	outputSVsAsVCF(finalSVs, cmdLine, refGenome, outputFile);
 
-	if (remove(validCandidatesFile.c_str()) != 0 ) {
-    	fprintf(stderr, "Error when deleting file %s.\n", validCandidatesFile.c_str());
-  	}
+	// if (remove(validCandidatesFile.c_str()) != 0 ) {
+ //    	fprintf(stderr, "Error when deleting file %s.\n", validCandidatesFile.c_str());
+ //  	}
 
 	return EXIT_SUCCESS;
 }
