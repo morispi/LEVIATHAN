@@ -30,6 +30,7 @@ int main(int argc, char* argv[]) {
 	totalCandidates = 0;
 
 	string validCandidatesFile = "candidates.bedpe";
+	bool candidatesProvided = false;
 	string cmdLine;
 
 
@@ -71,7 +72,7 @@ int main(int argc, char* argv[]) {
 		{"poolSize",			required_argument,	0, 'p'},
 		{"nbBins",				required_argument,	0, 'B'},
 		{"minBarcodes",			required_argument,	0, 'c'},
-		{"candidates",		required_argument,  0,  'C'},
+		{"candidates",			required_argument,  0,  'C'},
 		{0, 0, 0, 0},
 	};
 	int index;
@@ -136,6 +137,7 @@ int main(int argc, char* argv[]) {
 				break;
 			case 'C':
 				validCandidatesFile = optarg;
+				candidatesProvided = true;
 				break;
 			default:
 				printHelp();
@@ -144,7 +146,12 @@ int main(int argc, char* argv[]) {
 		iarg = getopt_long(argc, argv, "b:i:g:r:v:n:M:L:s:m:l:o:d:t:p:B:c:C:", longopts, &index);
 	}
 
-	if (bamFile.empty() or indexFile.empty() or refGenome.empty() or outputFile.empty()) {
+	if (candidatesProvided) {
+		if (bamFile.empty() or refGenome.empty() or outputFile.empty()) {
+			fprintf(stderr, "Please provide valid input files with options -b, -g and -o.\n");
+			exit(EXIT_FAILURE);
+		}
+	} else if (bamFile.empty() or indexFile.empty() or refGenome.empty() or outputFile.empty()) {
 		fprintf(stderr, "Please provide valid input files with options -b, -i, -g and -o.\n");
 		exit(EXIT_FAILURE);
 	}
