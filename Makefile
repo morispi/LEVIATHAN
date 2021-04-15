@@ -3,7 +3,7 @@ CC = g++
 CFLAGS  = -Wall -pedantic -O3 -m64 -shared -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -std=c++11 -fPIC
 
 BAMTOOLS_INC = $(curDir)/LRez/bamtools/include/bamtools/
-BAMTOOLS_LIB = $(shell readlink -f $(curDir)/LRez/bamtools/lib*)
+BAMTOOLS_LIB = $(curDir)/LRez/bamtools/lib/
 
 LREZ_INC = $(curDir)/LRez/src/include/
 LREZ_LIB = $(curDir)/LRez/lib/
