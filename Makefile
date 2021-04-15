@@ -19,7 +19,7 @@ LDFLAGS_LREZ = -llrez -L$(LREZ_LIB)
 LDFLAGS_MYVC = -lpthread
 
 MAIN = src/main.o
-SOURCE = src/alignmentsProcessing.o src/barcodesProcessing.o src/candidatesProcessing.o src/misc.o src/supportComputation.o src/SVValidation.o src/globalVariables.o src/genomeProcessing.o src/SVOuput.o src/help.o
+SOURCE = src/alignmentsProcessing.o src/barcodesProcessing.o src/candidatesProcessing.o src/misc.o src/supportComputation.o src/SVValidation.o src/globalVariables.o src/genomeProcessing.o src/SVOutput.o src/help.o
 
 EXEC = bin/LEVIATHAN
 
