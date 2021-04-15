@@ -160,6 +160,8 @@ int main(int argc, char* argv[]) {
 		cmdLine = cmdLine + argv[i] + " ";
 	}
 
+	minVariantSize = windowSize;
+
 	cerr << "Preparing auxiliary data" << endl;
 	prepareAuxiliaryData(bamFile);
 	genomeIndex = indexGenome(refGenome);
