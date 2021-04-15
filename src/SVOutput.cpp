@@ -43,9 +43,9 @@ void outputSVsAsVCF(robin_hood::unordered_set<StructuralVariant>& finalSVs, stri
 				 << s.barcodes + s.pairSupport << "\t" << "PASS" << "\t" << "SVTYPE=BND" << ";MATEID=" << "call_" << calls << "_2" << ";END=" << s.breakpoint2 
 				 << ";SVLEN=" << s.breakpoint2 - s.breakpoint1 + 1 << ";" << ";BARCODES=" << s.barcodes << ";PAIRS=" << s.pairSupport << endl;
 
-			out << s.chr1 << "\t" << s.breakpoint1 << "\t" << "call_" << calls << "_2" << "\t" << twoBitsToString(genomeIndex[s.chr1][s.breakpoint1 * 2], genomeIndex[s.chr1][s.breakpoint1 * 2 + 1])
-				 << "\t" << twoBitsToString(genomeIndex[s.chr2][s.breakpoint2 * 2], genomeIndex[s.chr2][s.breakpoint2 * 2 + 1]) << "[" << s.chr2 << ":" << s.breakpoint2 << "[" 
-				 << "\t" << s.barcodes + s.pairSupport << "\t" << "PASS" << "\t" << "SVTYPE=BND" << ";MATEID=" << "call_" << calls << "_1" << ";END=" << s.breakpoint2 
+			out << s.chr2 << "\t" << s.breakpoint2 << "\t" << "call_" << calls << "_2" << "\t" << twoBitsToString(genomeIndex[s.chr2][s.breakpoint2 * 2], genomeIndex[s.chr2][s.breakpoint2 * 2 + 1])
+				 << "\t" << twoBitsToString(genomeIndex[s.chr1][s.breakpoint1 * 2], genomeIndex[s.chr1][s.breakpoint1 * 2 + 1]) << "[" << s.chr1 << ":" << s.breakpoint1 << "[" 
+				 << "\t" << s.barcodes + s.pairSupport << "\t" << "PASS" << "\t" << "SVTYPE=BND" << ";MATEID=" << "call_" << calls << "_1" << ";END=" << s.breakpoint1 
 				 << ";SVLEN=" << s.breakpoint2 - s.breakpoint1 + 1 << ";" << ";BARCODES=" << s.barcodes << ";PAIRS=" << s.pairSupport << endl;
 		}
 
