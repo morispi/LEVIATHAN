@@ -8,7 +8,7 @@ unsigned long pairsWithOneBarcode;
 unsigned long pairsWithMoreBarcodes;
 
 // TODO TOUT PASSER EN REF AUX THREADS
-robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> processBarcode(int id, pair<int32_t, int32_t> beg, pair<int32_t, int32_t> end, string& bamFile, BarcodesPositionsIndex& barcodesPositionsIndex, barcode& b, int barcodesSize, int& minVariantSize) {
+robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> processBarcode(int id, pair<int32_t, int32_t> beg, pair<int32_t, int32_t> end, string& bamFile, BarcodesPositionsIndex& barcodesPositionsIndex, const barcode& b, int barcodesSize, int& minVariantSize) {
 	robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> candidates;
 	auto v = barcodesPositionsIndex[b];
 
