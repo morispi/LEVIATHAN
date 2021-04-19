@@ -2,8 +2,8 @@ curDir = $(shell pwd)
 CC = g++
 CFLAGS  = -Wall -pedantic -O3 -m64 -shared -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -std=c++11 -fPIC
 
-BAMTOOLS_INC = $(curDir)/LRez/bamtools/include/bamtools/
-BAMTOOLS_LIB = $(curDir)/LRez/bamtools/lib/
+BAMTOOLS_INC = $(curDir)/LRez/include/bamtools/
+BAMTOOLS_LIB = $(curDir)/LRez/lib/
 
 LREZ_INC = $(curDir)/LRez/src/include/
 LREZ_LIB = $(curDir)/LRez/lib/
@@ -14,7 +14,7 @@ MYVC_LIB = $(curDir)/lib/
 CTPL_INC = $(curDir)/CTPL/
 SSW_INC = $(curDir)/Complete-Striped-Smith-Waterman-Library/src/
 
-LDFLAGS_BAMTOOLS = -lbamtools -L$(BAMTOOLS_LIB)
+LDFLAGS_BAMTOOLS = -llrez_bamtools -L$(BAMTOOLS_LIB)
 LDFLAGS_LREZ = -llrez -L$(LREZ_LIB)
 LDFLAGS_MYVC = -lpthread
 
