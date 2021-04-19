@@ -220,6 +220,7 @@ void removeInvalidCandidates(robin_hood::unordered_map<string*, robin_hood::unor
 	candidates.clear();
 
 	// Remove regions that share similarities with too many other regions
+	unsigned nblarge = 0;
 	for (auto p : filteredCandidates) {
 		if (regionsLinks[p.first] < maxRegionsLinks) {
 			robin_hood::unordered_map<string*, unsigned> l;
@@ -231,10 +232,16 @@ void removeInvalidCandidates(robin_hood::unordered_map<string*, robin_hood::unor
 						candidates[pp.first][p.first] = pp.second;
 					}
 					totalCandidates++;
+				} else {
+					nblarge++;
 				}
 			}
+		} else {
+			nblarge++;
 		}
 	}
+
+	cerr << "nb large : " << nblarge << endl;
 
  }
 
