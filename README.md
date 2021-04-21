@@ -29,7 +29,7 @@ Then run the install.sh script:
 
 The installation script will build all dependencies, and build and store the binary in the `bin` folder.
 
-Installation from source
+Installation from conda
 --------------
 
 Alternatively, LEVIATHAN is also distributed as a bioconda package, which can be installed with:
