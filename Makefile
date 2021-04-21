@@ -9,7 +9,7 @@ LREZ_LIBDIR = $(BUILD_PREFIX)/LRez/lib/
 
 CXX ?= g++
 CXXFLAGS += -Wall -pedantic -O3 -m64 -std=c++11 -fPIC
-LDFLAGS += -L$(LREZ_LIBDIR) -Wl,-rpath,$(LREZ_LIBDIR) -Wl,-rpath,$(BUILD_LIBDIR)
+LDFLAGS += -L$(LREZ_LIBDIR) -Wl,-rpath,$(LREZ_LIBDIR) -Wl,-rpath,$(LIBDIR)
 
 BAMTOOLS_INC = ./LRez/include/bamtools/
 LREZ_INC = ./LRez/src/include/
