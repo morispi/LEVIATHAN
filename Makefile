@@ -11,7 +11,7 @@ CXX ?= g++
 CXXFLAGS += -Wall -pedantic -O3 -m64 -std=c++11 -fPIC
 LDFLAGS += -L$(LREZ_LIBDIR) -Wl,-rpath,$(LREZ_LIBDIR) -Wl,-rpath,$(BUILD_LIBDIR)
 
-BAMTOOLS_INC = $(BUILD_PREFIX)/LRez/include/bamtools/
+BAMTOOLS_INC = ./LRez/include/bamtools/
 LREZ_INC = ./LRez/src/include/
 LEVIATHAN_INC = ./src/include/
 CTPL_INC = ./CTPL/
