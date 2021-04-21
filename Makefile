@@ -1,39 +1,48 @@
-curDir = $(shell pwd)
-CC = g++
-CFLAGS  = -Wall -pedantic -O3 -m64 -shared -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -std=c++11 -fPIC
+PREFIX ?= /usr/local
+BINDIR = $(PREFIX)/bin
+LIBDIR = $(PREFIX)/lib
 
-BAMTOOLS_INC = $(curDir)/LRez/include/bamtools/
-BAMTOOLS_LIB = $(curDir)/LRez/lib/
+BUILD_PREFIX = $(shell pwd)
+BUILD_BINDIR = $(BUILD_PREFIX)/bin
+BUILD_LIBDIR = $(BUILD_PREFIX)/lib
+LREZ_LIBDIR = $(BUILD_PREFIX)/LRez/lib/
 
-LREZ_INC = $(curDir)/LRez/src/include/
-LREZ_LIB = $(curDir)/LRez/lib/
+CXX ?= g++
+CXXFLAGS += -Wall -pedantic -O3 -m64 -std=c++11 -fPIC
+LDFLAGS += -L$(LREZ_LIBDIR) -Wl,-rpath,$(LREZ_LIBDIR) -Wl,-rpath,$(BUILD_LIBDIR)
 
-MYVC_INC = $(curDir)/src/include/
-MYVC_LIB = $(curDir)/lib/
+BAMTOOLS_LIB_PREFIX = lrez_
+BAMTOOLS_LIB = $(BUILD_PREFIX)/LRez/lib$(BAMTOOLS_LIB_PREFIX)bamtools$(SHLIB_EXT)
 
-CTPL_INC = $(curDir)/CTPL/
-SSW_INC = $(curDir)/Complete-Striped-Smith-Waterman-Library/src/
+BAMTOOLS_INC = $(BUILD_PREFIX)/LRez/include/bamtools/
+LREZ_INC = ./LRez/src/include/
+LEVIATHAN_INC = ./src/include/
+CTPL_INC = ./CTPL/
+SSW_INC = ./Complete-Striped-Smith-Waterman-Library/src/
 
-LDFLAGS_BAMTOOLS = -llrez_bamtools -L$(BAMTOOLS_LIB)
-LDFLAGS_LREZ = -llrez -L$(LREZ_LIB)
-LDFLAGS_MYVC = -lpthread
+LIBS_LREZ = -llrez
+LIBS_BAMTOOLS = -l$(BAMTOOLS_LIB_PREFIX)bamtools
+LIBS_LEVIATHAN = -lpthread
 
 MAIN = src/main.o
 SOURCE = src/alignmentsProcessing.o src/barcodesProcessing.o src/candidatesProcessing.o src/misc.o src/supportComputation.o src/SVValidation.o src/globalVariables.o src/genomeProcessing.o src/SVOutput.o src/help.o
 
-EXEC = bin/LEVIATHAN
+EXEC = $(BUILD_BINDIR)/LEVIATHAN
 
-all: directories $(EXEC)
+all: $(EXEC)
 
 directories:
-	mkdir -p bin/
+	mkdir -p $(BUILD_BINDIR)
 
-$(EXEC): $(MAIN) $(SOURCE)
-	$(CC) -o $(EXEC) $(MAIN) $(SOURCE) $(LDFLAGS_BAMTOOLS) -Wl,-rpath,$(BAMTOOLS_LIB) $(LDFLAGS_LREZ) -Wl,-rpath,$(LREZ_LIB) $(LDFLAGS_MYVC)
+$(EXEC): $(MAIN) $(SOURCE) directories
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $(EXEC) $(MAIN) $(SOURCE) $(LIBS_BAMTOOLS) $(LIBS_LREZ) $(LIBS_LEVIATHAN)
 
 src/%.o: src/%.cpp
-	$(CC) -o $@ -c $< $(CFLAGS) -I$(BAMTOOLS_INC) -I$(LREZ_INC) -I$(MYVC_INC) -I$(CTPL_INC) -I$(SSW_INC)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -I$(BAMTOOLS_INC) -I$(LREZ_INC) -I$(LEVIATHAN_INC) -I$(CTPL_INC) -I$(SSW_INC) -o $@ -c $<
 
+install:
+	mkdir -p $(DESTDIR)$(BINDIR)
+	cp -a $(EXEC) $(DESTDIR)$(BINDIR)/
 
 clean:
 	rm src/*.o $(EXEC)

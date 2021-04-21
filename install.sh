@@ -8,4 +8,4 @@ cd LRez
 
 #Install LEVIATHAN
 cd ../
-make
+make -j"$( nproc )" PREFIX="$( pwd )"
