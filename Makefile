@@ -18,7 +18,7 @@ CTPL_INC = ./CTPL/
 SSW_INC = ./Complete-Striped-Smith-Waterman-Library/src/
 
 BAMTOOLS_LIB_PREFIX = lrez_
-LIBS_LREZ = -llrez -llrez_bamtools
+LIBS_LREZ = -llrez
 LIBS_BAMTOOLS = -l$(BAMTOOLS_LIB_PREFIX)bamtools
 LIBS_LEVIATHAN = -lpthread
 
