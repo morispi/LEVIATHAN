@@ -12,7 +12,7 @@ Requirements
   - CMake, minimum version 2.8.2.
   - zlib, minimum version 1.2.11.
   
-Installation
+Installation from source
 --------------
 
 Clone the LEVIATHAN repository, along with its submodules with:
@@ -28,6 +28,15 @@ Then run the install.sh script:
   ```
 
 The installation script will build all dependencies, and build and store the binary in the `bin` folder.
+
+Installation from source
+--------------
+
+Alternatively, LEVIATHAN is also distributed as a bioconda package, which can be installed with:
+
+```bash
+conda install -c bioconda leviathan
+```
 
 Getting started
 --------------
