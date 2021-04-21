@@ -11,16 +11,14 @@ CXX ?= g++
 CXXFLAGS += -Wall -pedantic -O3 -m64 -std=c++11 -fPIC
 LDFLAGS += -L$(LREZ_LIBDIR) -Wl,-rpath,$(LREZ_LIBDIR) -Wl,-rpath,$(BUILD_LIBDIR)
 
-BAMTOOLS_LIB_PREFIX = lrez_
-BAMTOOLS_LIB = $(BUILD_PREFIX)/LRez/lib$(BAMTOOLS_LIB_PREFIX)bamtools$(SHLIB_EXT)
-
 BAMTOOLS_INC = $(BUILD_PREFIX)/LRez/include/bamtools/
 LREZ_INC = ./LRez/src/include/
 LEVIATHAN_INC = ./src/include/
 CTPL_INC = ./CTPL/
 SSW_INC = ./Complete-Striped-Smith-Waterman-Library/src/
 
-LIBS_LREZ = -llrez
+BAMTOOLS_LIB_PREFIX = lrez_
+LIBS_LREZ = -llrez -llrez_bamtools
 LIBS_BAMTOOLS = -l$(BAMTOOLS_LIB_PREFIX)bamtools
 LIBS_LEVIATHAN = -lpthread
 
