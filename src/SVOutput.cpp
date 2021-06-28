@@ -36,7 +36,7 @@ void outputSVsAsVCF(robin_hood::unordered_set<StructuralVariant>& finalSVs, stri
 		if (s.type != "TRA") {
 			out << s.chr1 << "\t" << s.breakpoint1 << "\t" << "call_" << calls << "\t" << twoBitsToString(genomeIndex[s.chr1][s.breakpoint1 * 2], genomeIndex[s.chr1][s.breakpoint1 * 2 + 1])
 				 << "\t" << "<" << s.type << ">" << "\t" << s.barcodes + s.pairSupport << "\t" << "PASS" << "\t" << "SVTYPE=" << s.type << ";END=" << s.breakpoint2 
-				 << ";SVLEN=" << s.breakpoint2 - s.breakpoint1 + 1 << ";" << ";BARCODES=" << s.barcodes << ";PAIRS=" << s.pairSupport << endl;
+				 << ";SVLEN=" << s.breakpoint2 - s.breakpoint1 + 1 << ";BARCODES=" << s.barcodes << ";PAIRS=" << s.pairSupport << endl;
 		} else {
 			// TODO: gather 4 breakpoints for translocations?
 			out << s.chr1 << "\t" << s.breakpoint1 << "\t" << "call_" << calls << "_1" << "\t" << twoBitsToString(genomeIndex[s.chr1][s.breakpoint1 * 2], genomeIndex[s.chr1][s.breakpoint1 * 2 + 1])
