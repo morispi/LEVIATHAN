@@ -50,20 +50,6 @@ vector<BamAlignment> retrieveAlignmentsWithCommonHeadersAndTreatInsertions(vecto
 		if (headers.count(al.Name)) {
 			common.push_back(al);
 		} else {
-			// TODO vérifier ça
-			// if (al.IsPrimaryAlignment() and !al.IsMateMapped()) {
-			// 	support.insertion++;
-			// } else if (!al.IsMateMapped()) {
-			// 	unsigned pos = al.Position;
-			// 	std::vector<CigarOp> cigar = al.CigarData;
-			// 	unsigned i = 0;
-			// 	while (i < cigar.size() and cigar[i].Type == 'M') {
-			// 		pos += cigar[i].Length;
-			// 		i++;
-			// 	}
-			// 	posSupportRegion[pos - beg] += 1;
-			// 	support.splitReads++;
-			// }
 			if (!al.IsMateMapped()) {
 				support.insertion++;
 				if (al.GetSoftClips(clipSizes, readPositions, genomePositions, false)) {
@@ -117,20 +103,6 @@ pair<robin_hood::unordered_set<string>, vector<BamAlignment>> extractAlignmentsW
 			headersSet.insert(al.Name);
 			alignments.push_back(al);
 		} else {
-			// TODO vérifier ça (insertion)
-			// if (alignment.IsPrimaryAlignment() and !alignment.IsMateMapped()) {
-			// 	support.insertion++;
-			// } else if (!alignment.IsMateMapped()) {
-			// 	unsigned pos = alignment.Position;
-			// 	std::vector<CigarOp> cigar = alignment.CigarData;
-			// 	unsigned i = 0;
-			// 	while (i < cigar.size() and cigar[i].Type == 'M') {
-			// 		pos += cigar[i].Length;
-			// 		i++;
-			// 	}
-			// 	posSupportRegion[pos - beg] += 1;
-			// 	support.splitReads++;
-			// }
 			if (!al.IsMateMapped()) {
 				support.insertion++;
 				if (al.GetSoftClips(clipSizes, readPositions, genomePositions, false)) {

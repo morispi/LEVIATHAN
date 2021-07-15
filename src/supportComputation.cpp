@@ -16,7 +16,7 @@ SVSupports computeSVSupport(vector<BamAlignment>& commonAlignments1, vector<BamA
 	vector<int> readPositions;
 	vector<int> genomePositions;
 
-	// TODO ATTENTION ! On peut compter plusieurs fois les splits ici... Car on fait des paires
+	// TODO Splits can be counted multiple times here because of pairing
 
 	while (i < commonAlignments1.size()) {
 		oldJ = j;
@@ -67,11 +67,10 @@ SVSupports computeSVSupport(vector<BamAlignment>& commonAlignments1, vector<BamA
 
 			}
 
-			// TODO prendre en compte les signature split pour le typage
+			// TODO split reads into accoung for typing SVs
 
-			if (commonAlignments1[i].GetSoftClips(clipSizes, readPositions, genomePositions, false) and commonAlignments2[j].GetSoftClips(clipSizes, readPositions, genomePositions, false)) {
-				// cerr << "YES !!!" << endl;
-			}
+			// if (commonAlignments1[i].GetSoftClips(clipSizes, readPositions, genomePositions, false) and commonAlignments2[j].GetSoftClips(clipSizes, readPositions, genomePositions, false)) {
+			// }
 			
 			if (commonAlignments1[i].GetSoftClips(clipSizes, readPositions, genomePositions, false)) {
 				BamAlignment a = commonAlignments1[i];

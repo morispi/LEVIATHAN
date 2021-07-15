@@ -75,35 +75,13 @@ vector<pair<pair<string*, string*>, SVSupports>> processCandidate(int id, pair<s
 		support.support1 = posSupportRegion1[maxR1];
 		support.support2 = posSupportRegion2[maxR2];
 
-		// commonAlignments1 = extractAlignmentsAndHeadersFromRegion(bamFile, *(candidate.first), 250).second;
-		// commonAlignments2 = extractAlignmentsAndHeadersFromRegion(bamFile, *(p.first), 250).second;
-		
-		// // TODO : l'assemblage ne donne rien au dessus de k = 15
-		// // if (support.support1 > 0 and support.support2 > 0) {
-		// if (support.support1 > 0 and support.support2 > 0 and (support.translocation > 0 or support.deletion > 0 or support.duplication > 0 or support.inversion > 0 or support.insertion > 0)) {
-		// 	string assembly; 
-		// 	if (begR1 < begR2) {
-		// 		assembly = computeAssembly(commonAlignments1, commonAlignments2, 31, 10, 100000, 5, *(candidate.first), *(p.first));
-		// 	} else {
-		// 		assembly = computeAssembly(commonAlignments2, commonAlignments1, 31, 10, 100000, 5, *(p.first), *(candidate.first));
-		// 	}
-
-		// 	cerr << "assembled : " << assembly << endl;
-		// 	cerr << assembly.size() << endl;
-
-		// 	pair<unsigned, unsigned> assemblyBreakpoints;
-		// 	if (!assembly.empty()) {
-		// 		assemblyBreakpoints = computeAssemblyBreakpoints(assembly, *(candidate.first), *(p.first));
-		// 	}
-
-
-		// 	cerr << "bp1 : " << support.breakpoint1 << " ; " << assemblyBreakpoints.first << endl;
-		// 	cerr << "bp2 : " << support.breakpoint2 << " ; " << assemblyBreakpoints.second << endl;
-		// }
-
 		if (support.support1 > 0 and support.support2 > 0 and (support.translocation > 0 or support.deletion > 0 or support.duplication > 0 or support.inversion > 0 or support.insertion > 0)) {
 			res.push_back(make_pair(make_pair(candidate.first, p.first), support));
+			// cerr << "support : " << support.translocation + support.deletion + support.duplication + support.inversion + support.insertion << endl;
+			// cerr << "reads 1 : " << support.support1 << endl;
+			// cerr << "reads 2 : " << support.support2 << endl;
 		}
+
 
 			countMtx.lock();
 			processedCandidates++;
@@ -216,7 +194,6 @@ void removeInvalidCandidates(robin_hood::unordered_map<string*, robin_hood::unor
 		}
 	}
 
-	// candidates = filteredCandidates;
 	candidates.clear();
 
 	// Remove regions that share similarities with too many other regions
@@ -301,9 +278,7 @@ robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>>
 
 	while (getline(in, line)) {
 		v = splitString(line, "\t");
-		// cerr << v[0] << " ; " << v[1] << " ; " << v[2] << endl;
 		r1 = positionToRegion(windows[refIDs[v[0]]], stoul(v[1]));
-		// cerr << *r1 << endl << endl;
 		r2 = positionToRegion(windows[refIDs[v[3]]], stoul(v[4]));
 		nbBarcodes = stoul(v[6]);
 		res[r1][r2] = nbBarcodes;

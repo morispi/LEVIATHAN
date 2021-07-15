@@ -7,7 +7,6 @@
 unsigned long pairsWithOneBarcode;
 unsigned long pairsWithMoreBarcodes;
 
-// TODO TOUT PASSER EN REF AUX THREADS
 robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> processBarcode(int id, pair<int32_t, int32_t> beg, pair<int32_t, int32_t> end, string& bamFile, BarcodesPositionsIndex& barcodesPositionsIndex, const barcode& b, int barcodesSize, int& minVariantSize) {
 	robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> candidates;
 	auto v = barcodesPositionsIndex[b];
@@ -29,9 +28,7 @@ robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>>
 				} else {
 					candidates[reg2][reg1]++;
 				}
-			// TODO: Vérifier la minVariantSize entre les fenêtres
-			// minVariantSize was 2 * windowSize
-				// TODO inutile car beg1 sera toujours plus petit vu que l'index est trié ?
+			// TODO useless since beg1 is always smaller as the index is sorted?
 			} else if (reg1 != reg2 and begR2 >= begR1 + minVariantSize) {
 				candidates[reg1][reg2]++;
 			} else if (reg1 != reg2 and begR1 >= begR2 + minVariantSize) {
@@ -178,8 +175,6 @@ Thresholds analyzeDistribution(robin_hood::unordered_map<string*, robin_hood::un
     unsigned long totalSuppClose = 0;
     unsigned long totalSuppAverage = 0;
     unsigned long totalSuppFar = 0;
-
-    // TODO : Bug avec les seuils 99.95 ?
 
     for (auto p : candidates) {
     	pair<string, int32_t> chrBeg1 = regionChrAndBegPosition(*(p.first));

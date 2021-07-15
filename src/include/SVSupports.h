@@ -1,6 +1,9 @@
 #ifndef __MYVC_SV_SUPPORTS__
 #define __MYVC_SV_SUPPORTS__
 
+/**
+	Structure defining the support of a SV
+*/
 struct SVSupports {
 	unsigned barcodes = 0;
 	unsigned alignments1 = 0;
@@ -17,6 +20,6 @@ struct SVSupports {
 	unsigned support2 = 0;
 };
 
-// TODO ajouter une fonction de comparaison directement pour le support
+// TODO add a function for comparing the support in there
 
 #endif

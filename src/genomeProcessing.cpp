@@ -85,7 +85,6 @@ robin_hood::unordered_map<std::string, std::vector<bool>> indexGenome(std::strin
     // Skip remaining lines if FASTQ
     if (seq[0] == '+') {
       getline(f, seq);
-      // while (seq.length() > 0 and seq[0] != '@') {
       for (int i = 1; i < nbLines; i++) {
         getline(f, seq);
       }
@@ -103,9 +102,6 @@ string extractGenomeRegion(string region) {
   vector<string> t = splitString(region, ":");
   vector<string> tt = splitString(t[1], "-");
 
-  // TODO regarder si on ne peut prendre que la fenêtre pour aligner + vite ?
-  // return fullnum2str(genomeIndex[t[0]]).substr(static_cast<uint32_t>(stoul(tt[0])) - windowSize, 3 * windowSize);
-  // return fullnum2str(genomeIndex[t[0]]).substr(static_cast<uint32_t>(stoul(tt[0])) - windowSize / 2, 2 * windowSize);
   return fullnum2str(genomeIndex[t[0]]).substr(static_cast<uint32_t>(stoul(tt[0])), windowSize);
 
 }

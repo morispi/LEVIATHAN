@@ -5,6 +5,9 @@
 
 using namespace std;
 
+/**
+	A structure representing a structural variant, with its two breakpoints and associated chromosomes, its type, number of common barcodes and discord paired-reads support
+*/
 struct StructuralVariant {
 	string chr1;
 	unsigned breakpoint1;
@@ -14,10 +17,16 @@ struct StructuralVariant {
 	unsigned barcodes;
 	unsigned pairSupport;
 
+	/**
+		Empty constructor
+	*/
 	StructuralVariant() {
 		
 	}
 
+	/**
+		Construct a structural variant with the parameters
+	*/
 	StructuralVariant(string c1, unsigned bp1, string c2, unsigned bp2, string t, unsigned b, unsigned p) {
 		chr1 = c1;
 		breakpoint1 = bp1;
@@ -28,11 +37,17 @@ struct StructuralVariant {
 		pairSupport = p;
 	}
 
+	/**
+		Checks if two structural variants are equal
+	*/
 	bool operator==(const StructuralVariant& other) const{
 		return chr1 == other.chr1 and breakpoint1 == other.breakpoint1 and chr2 == other.chr2 and breakpoint2 == other.breakpoint2 and type == other.type and barcodes == other.barcodes and pairSupport == other.pairSupport;
 	}
 };
 
+/**
+	Required to hash structural variants
+*/
 namespace std {
 	template <> struct hash<StructuralVariant> {
 		std::size_t operator()(const StructuralVariant& s) const {

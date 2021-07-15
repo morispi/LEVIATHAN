@@ -13,8 +13,6 @@
 #include "help.h"
 #include <getopt.h>
 
-// TODO paramètre pour le b de barcodes
-
 int main(int argc, char* argv[]) {
 	// Parse arguments
 	string bamFile;
@@ -181,10 +179,8 @@ int main(int argc, char* argv[]) {
 		cerr << "Computing and analyzing the distribution of shared barcodes between candidates" << endl;
 		Thresholds th = analyzeDistribution(candidates);	
 		
-		// TODO refaire le message
 		cerr << "Removing invalid candidates (regions pairs that share do not share a sufficient number of barcodes and regions that are paired with more than " << maxRegionsLinks << " other regions)" << endl;
 		removeInvalidCandidates(candidates, th, maxRegionsLinks);
-		// removeCandidatesRegionsLinks(candidates, maxRegionsLinks);
 		
 		cerr << "Saving all SV candidates to file \"" << validCandidatesFile << "\"" << endl;
 		saveSVCandidates(validCandidatesFile, candidates);
@@ -205,10 +201,6 @@ int main(int argc, char* argv[]) {
 
 	cerr << "Output " << finalSVs.size() << " SVs" << endl;
 	outputSVsAsVCF(finalSVs, cmdLine, refGenome, outputFile);
-
-	// if (remove(validCandidatesFile.c_str()) != 0 ) {
- //    	fprintf(stderr, "Error when deleting file %s.\n", validCandidatesFile.c_str());
- //  	}
 
 	return EXIT_SUCCESS;
 }

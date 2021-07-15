@@ -56,21 +56,16 @@ robin_hood::unordered_set<StructuralVariant> validatesSVs(robin_hood::unordered_
 				type = "TRA";
 				maxSupp = sv.second.translocation;
 			}
-			// double diffSupport = (double) max(sv.second.support1, sv.second.support2) / min(sv.second.support1, sv.second.support2);
 			// if (maxSupp > 1 and sv.second.support1 > 1 and sv.second.support2 > 1) {
 				StructuralVariant s;
 				if (s1 < s2) {
 					s = StructuralVariant(s1, sv.second.breakpoint1, s2, sv.second.breakpoint2, type, sv.second.barcodes, maxSupp);
-					// s = s1 + "\t" + to_string(sv.second.breakpoint1) + "\t" + s2 + "\t" + to_string(sv.second.breakpoint2) + "\t" + type;
 				} else if (s2 < s1) {
 					s = StructuralVariant(s2, sv.second.breakpoint2, s1, sv.second.breakpoint1, type, sv.second.barcodes, maxSupp);
-					// s = s2 + "\t" + to_string(sv.second.breakpoint2) + "\t" + s1 + "\t" + to_string(sv.second.breakpoint1) + "\t" + type;
 				} else if (sv.second.breakpoint1 < sv.second.breakpoint2) {
 					s = StructuralVariant(s1, sv.second.breakpoint1, s2, sv.second.breakpoint2, type, sv.second.barcodes, maxSupp);
-					// s = s1 + "\t" + to_string(sv.second.breakpoint1) + "\t" + s2 + "\t" + to_string(sv.second.breakpoint2) + "\t" + type;
 				} else {
 					s = StructuralVariant(s2, sv.second.breakpoint2, s1, sv.second.breakpoint1, type, sv.second.barcodes, maxSupp);
-					// s = s2 + "\t" + to_string(sv.second.breakpoint2) + "\t" + s1 + "\t" + to_string(sv.second.breakpoint1) + "\t" + type;
 				}
 				if (!isPresent(finalSVs, s, duplicatesDistance)) {
 					finalSVs.insert(s);

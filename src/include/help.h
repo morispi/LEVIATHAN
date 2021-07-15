@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/**
+	Print help message with LEVIATHAN inputs and options
+*/
 void printHelp();
 
 #endif
