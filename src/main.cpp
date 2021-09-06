@@ -93,6 +93,7 @@ int main(int argc, char* argv[]) {
 				break;
 			case 'r':
 				windowSize = stoul(optarg);
+				minVariantSize = windowSize;
 				break;
 			case 'v':
 				minVariantSize = stoul(optarg);
@@ -158,8 +159,6 @@ int main(int argc, char* argv[]) {
 		cmdLine = cmdLine + argv[i] + " ";
 	}
 
-	minVariantSize = windowSize;
-
 	cerr << "Preparing auxiliary data" << endl;
 	prepareAuxiliaryData(bamFile);
 	genomeIndex = indexGenome(refGenome);
@@ -177,7 +176,7 @@ int main(int argc, char* argv[]) {
 		candidates = processBarcodes(nbThreads, refIDs, regionsList, nbBins, bamFile, barcodesPositionsIndex, barcodesPositionsIndex.size(), minVariantSize);
 
 		cerr << "Computing and analyzing the distribution of shared barcodes between candidates" << endl;
-		Thresholds th = analyzeDistribution(candidates);	
+		Thresholds th = analyzeDistribution(candidates);
 		
 		cerr << "Removing invalid candidates (regions pairs that share do not share a sufficient number of barcodes and regions that are paired with more than " << maxRegionsLinks << " other regions)" << endl;
 		removeInvalidCandidates(candidates, th, maxRegionsLinks);
