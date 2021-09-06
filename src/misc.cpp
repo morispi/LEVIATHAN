@@ -111,7 +111,11 @@ void prepareAuxiliaryData(string& bamFile) {
             exit(EXIT_FAILURE);
         }   
         // Only process the chromosome if it has alignments
-        if (reader.SetRegion(id, 0, id, d.RefLength - 1) and reader.GetNextAlignment(al)) {
+        if (!reader.SetRegion(id, 0, id, d.RefLength - 1)) {
+            fprintf(stderr, "Error while attempting to jump to region.\n");
+            exit(EXIT_FAILURE);
+        }
+        if (reader.GetNextAlignment(al)) {
             vector<string> w = extractWindowsRegions(d.RefName, id, d.RefLength);
             for (string ww : w) {
                 regionsList.push_back(ww);
