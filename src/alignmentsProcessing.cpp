@@ -21,9 +21,18 @@ pair<robin_hood::unordered_set<string>, vector<BamAlignment>> extractAlignmentsA
 		vector<string> t = splitString(region, ":");
 	    vector<string> p = splitString(t[1], "-");
 		string region1 = t[0] + ":" + to_string(max(static_cast<uint32_t>(0), static_cast<uint32_t>(stoul(p[0]) - additionalSize))) + "-" + to_string(static_cast<uint32_t>(stoul(p[1]) + additionalSize));
-		reader.SetRegion(stringToBamRegion(reader, region1));	
+		
+		BamRegion r = stringToBamRegion(reader, region1);
+		if (!reader.SetRegion(r)) {
+            fprintf(stderr, "Error while attempting to jump to region %s.\n", region1.c_str());
+            exit(EXIT_FAILURE);
+        }
 	} else {
-		reader.SetRegion(stringToBamRegion(reader, region));
+		BamRegion r = stringToBamRegion(reader, region);
+		if (!reader.SetRegion(r)) {
+            fprintf(stderr, "Error while attempting to jump to region %s.\n", region.c_str());
+            exit(EXIT_FAILURE);
+        }
 	}
 	
 
@@ -90,9 +99,18 @@ pair<robin_hood::unordered_set<string>, vector<BamAlignment>> extractAlignmentsW
 		vector<string> t = splitString(region, ":");
 	    vector<string> p = splitString(t[1], "-");
 		string region1 = t[0] + ":" + to_string(max(static_cast<uint32_t>(0), static_cast<uint32_t>(stoul(p[0]) - additionalSize))) + "-" + to_string(static_cast<uint32_t>(stoul(p[1]) + additionalSize));
-		reader.SetRegion(stringToBamRegion(reader, region1));	
+		
+		BamRegion r = stringToBamRegion(reader, region1);
+		if (!reader.SetRegion(r)) {
+            fprintf(stderr, "Error while attempting to jump to region %s.\n", region1.c_str());
+            exit(EXIT_FAILURE);
+        }
 	} else {
-		reader.SetRegion(stringToBamRegion(reader, region));
+		BamRegion r = stringToBamRegion(reader, region);
+		if (!reader.SetRegion(r)) {
+            fprintf(stderr, "Error while attempting to jump to region %s.\n", region.c_str());
+            exit(EXIT_FAILURE);
+        }
 	}
 
 	robin_hood::unordered_set<string> headersSet;
