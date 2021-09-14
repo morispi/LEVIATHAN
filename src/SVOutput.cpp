@@ -20,7 +20,10 @@ void outputSVsAsVCF(robin_hood::unordered_set<StructuralVariant>& finalSVs, stri
 	out << "##fileformat=VCFv4.2" << endl;
 	out << "##source=MyVC" << endl;
 	out << "##command=" << cmdLine << endl;
-	out << "#reference=" << reference << endl;
+	out << "##reference=" << reference << endl;
+	for (auto g : genomeIndex) {
+		out << "##contig=<ID=" << g.first << ",length=" << g.second.size() / 2 << ">" << endl;
+	}
 	out << "##FILTER=<ID=PASS,Description=\"Filters passed\">" << endl;
 	out << "##FILTER=<ID=LowQual,Description=\"Low quality\">" << endl;
 	out << "##INFO=<ID=SVTYPE,Number=1,Type=String,Description=\"Type of variant, either DEL, DUP, INV, INS, or BND\">" << endl;
