@@ -7,7 +7,7 @@
 unsigned long pairsWithOneBarcode;
 unsigned long pairsWithMoreBarcodes;
 
-robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> processBarcode(int id, pair<int32_t, int32_t> beg, pair<int32_t, int32_t> end, string& bamFile, BarcodesPositionsIndex& barcodesPositionsIndex, const barcode& b, int barcodesSize, int& minVariantSize) {
+robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> processBarcode(int id, pair<int32_t, int32_t> beg, pair<int32_t, int32_t> end, string& bamFile, BarcodesPositionsIndex& barcodesPositionsIndex, const barcode& b, int barcodesSize, int& minVariantSize, bool skipTranslocations) {
 	robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> candidates;
 	auto v = barcodesPositionsIndex[b];
 
@@ -23,10 +23,12 @@ robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>>
 			unsigned begR1 = (v[i].second / windowSize) * windowSize;
 			unsigned begR2 = (v[j].second / windowSize) * windowSize;
 			if (v[i].first != v[j].first) {
-				if (v[i].first < v[j].first) {
-					candidates[reg1][reg2]++;
-				} else {
-					candidates[reg2][reg1]++;
+				if (!skipTranslocations) {
+					if (v[i].first < v[j].first) {
+						candidates[reg1][reg2]++;
+					} else {
+						candidates[reg2][reg1]++;
+					}
 				}
 			// TODO useless since beg1 is always smaller as the index is sorted?
 			} else if (reg1 != reg2 and begR2 >= begR1 + minVariantSize) {
@@ -45,7 +47,7 @@ robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>>
 	return candidates;
 }
 
-robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> processBarcodes(int nbThreads, robin_hood::unordered_map<string, int>& refIDs, vector<string>& regionsList, unsigned nbBins, string& bamFile, BarcodesPositionsIndex& barcodesPositionsIndex, int barcodesSize, int minVariantSize) {
+robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> processBarcodes(int nbThreads, robin_hood::unordered_map<string, int>& refIDs, vector<string>& regionsList, unsigned nbBins, string& bamFile, BarcodesPositionsIndex& barcodesPositionsIndex, int barcodesSize, int minVariantSize, bool skipTranslocations) {
 	robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>> candidates;
 	ctpl::thread_pool myPool(nbThreads);
 	unsigned jobsLoaded = 0;
@@ -76,7 +78,7 @@ robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>>
 		// Load the first jobs
 		vector<std::future<robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>>>> results(poolSize);
 	    while (jobsLoaded < poolSize && jobsLoaded < barcodesPositionsIndex.size()) {
-	        results[jobsLoaded] = myPool.push(processBarcode, ref(beg), ref(end), ref(bamFile), ref(barcodesPositionsIndex), ref(it->first), barcodesPositionsIndex.size(), ref(minVariantSize));
+	        results[jobsLoaded] = myPool.push(processBarcode, ref(beg), ref(end), ref(bamFile), ref(barcodesPositionsIndex), ref(it->first), barcodesPositionsIndex.size(), ref(minVariantSize), skipTranslocations);
 	        jobsLoaded++;
 	        it++;
 		}
@@ -96,7 +98,7 @@ robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>>
 	        jobsCompleted++;
 	        
 	        // Load the next job
-	        results[curJob] = myPool.push(processBarcode, ref(beg), ref(end), ref(bamFile), ref(barcodesPositionsIndex), ref(it->first), barcodesPositionsIndex.size(), ref(minVariantSize));
+	        results[curJob] = myPool.push(processBarcode, ref(beg), ref(end), ref(bamFile), ref(barcodesPositionsIndex), ref(it->first), barcodesPositionsIndex.size(), ref(minVariantSize), skipTranslocations);
 	        jobsLoaded++;
 	        it++;
 	        

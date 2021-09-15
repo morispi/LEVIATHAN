@@ -46,6 +46,7 @@ int main(int argc, char* argv[]) {
 	poolSize = 100000;
 	minBarcodes = 1;
 	unsigned nbThreads = 8;
+	bool skipTranslocations = false;
 
 	const struct option longopts[] = {
 		{"bam",					required_argument,	0, 'b'},
@@ -65,6 +66,7 @@ int main(int argc, char* argv[]) {
 		{"largeRate",			required_argument,	0, 'l'},
 		
 		{"duplicates",			required_argument,	0, 'd'},
+		{"skipTranslocations",  no_argument,	    0, 'S'},
 
 		{"threads",				required_argument,	0, 't'},
 		{"poolSize",			required_argument,	0, 'p'},
@@ -76,7 +78,7 @@ int main(int argc, char* argv[]) {
 	int index;
 	int iarg = 0;
 
-	iarg = getopt_long(argc, argv, "b:i:g:r:v:n:M:L:s:m:l:o:d:t:p:B:c:C:", longopts, &index);
+	iarg = getopt_long(argc, argv, "b:i:g:r:v:n:M:L:s:m:l:o:d:t:p:B:c:C:S", longopts, &index);
 	if (iarg == -1) {
 		printHelp();
 	}
@@ -138,6 +140,9 @@ int main(int argc, char* argv[]) {
 				validCandidatesFile = optarg;
 				candidatesProvided = true;
 				break;
+			case 'S':
+				skipTranslocations = true;
+				break;
 			default:
 				printHelp();
 				break;
@@ -173,7 +178,7 @@ int main(int argc, char* argv[]) {
 		// Process every barcode to look for SV evidence
 		cerr << "Computing the number of common barcodes between all the pairs of regions of the genome" << endl;
 		totalBarcodes = barcodesPositionsIndex.size();
-		candidates = processBarcodes(nbThreads, refIDs, regionsList, nbBins, bamFile, barcodesPositionsIndex, barcodesPositionsIndex.size(), minVariantSize);
+		candidates = processBarcodes(nbThreads, refIDs, regionsList, nbBins, bamFile, barcodesPositionsIndex, barcodesPositionsIndex.size(), minVariantSize, skipTranslocations);
 
 		cerr << "Computing and analyzing the distribution of shared barcodes between candidates" << endl;
 		Thresholds th = analyzeDistribution(candidates);

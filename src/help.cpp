@@ -27,6 +27,7 @@ void printHelp() {
 	printf("\t-m, --mediumRate:         Percentile to chose as a threshold in the distribution of the number of shared barcodes for medium variants (default: 99)\n");
 	printf("\t-l, --largeRate:          Percentile to chose as a threshold in the distribution of the number of shared barcodes for large variants (default: 99)\n");
 	printf("\t-d, --duplicates:         Consider SV as duplicates if they have the same type and if their breakpoints are within this distance (default: 10)\n");
+	printf("\t-S, --skipTranslocations: Do not process SVs which are translocations (default: false)\n");
 	printf("\t-t, --threads:            Number of threads (default: 8)\n");
 	printf("\t-p, --poolSize:           Size of the thread pool (default: 100000)\n");
 	printf("\t-B, --nbBins:             Number of iterations to perform through the barcode index (default: 10)\n");

@@ -95,6 +95,7 @@ Once the index is built, LEVIATHAN can then be run with the following command:
       -m, --mediumRate:         Percentile to chose as a threshold in the distribution of the number of shared barcodes for medium variants (default: 99)
       -l, --largeRate:          Percentile to chose as a threshold in the distribution of the number of shared barcodes for large variants (default: 99)
       -d, --duplicates:         Consider SV as duplicates if they have the same type and if their breakpoints are within this distance (default: 10)
+      -s, --skipTranslocations: Skip SVs that are translocations (default: false)
       -t, --threads:            Number of threads (default: 8)
       -p, --poolSize:           Size of the thread pool (default: 100000)
       -B, --nbBins:             Number of iterations to perform through the barcode index (default: 10)
