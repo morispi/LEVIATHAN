@@ -32,11 +32,14 @@ void outputSVsAsVCF(robin_hood::unordered_set<StructuralVariant>& finalSVs, stri
 	out << "##INFO=<ID=BARCODES,Number=1,Type=Integer,Description=\"The number of barcodes shared by the regions spanning the breakpoints of the variant\">" << endl;
 	out << "##INFO=<ID=PAIRS,Number=1,Type=Integer,Description=\"The number of discordant read pairs validating the variant and its type\">" << endl;
 	out << "##INFO=<ID=MATEID,Number=.,Type=String,Description=\"ID of mate breakends\">" << endl;
-	out << "#CHROM" << "\t" << "POS" << "\t" << "ID" << "\t" << "REF" << "\t" << "ALT" << "\t" << "QUAL" << "\t" << "FILTER" << "\t" << "INFO" << endl;
-	
+	out << "#CHROM" << "\t" << "POS" << "\t" << "ID" << "\t" << "REF" << "\t" << "ALT" << "\t" << "QUAL" << "\t" << "FILTER" << "\t" << "INFO" << endl;	
 	unsigned calls = 0;
 	for (StructuralVariant s : finalSVs) {
-		if (s.type != "TRA") {
+		if (genomeIndex[s.chr1].size() == 0) {
+			cerr << "Warning: chromosome " << s.chr1 << " does not exist in the provided reference genome." << endl;
+		} else if (genomeIndex[s.chr2].size() == 0) {
+			cerr << "Warning: chromosome " << s.chr2 << " does not exist in the provided reference genome." << endl;
+		} else if (s.type != "TRA") {
 			out << s.chr1 << "\t" << s.breakpoint1 << "\t" << "call_" << calls << "\t" << twoBitsToString(genomeIndex[s.chr1][s.breakpoint1 * 2], genomeIndex[s.chr1][s.breakpoint1 * 2 + 1])
 				 << "\t" << "<" << s.type << ">" << "\t" << s.barcodes + s.pairSupport << "\t" << "PASS" << "\t" << "SVTYPE=" << s.type << ";END=" << s.breakpoint2 
 				 << ";SVLEN=" << s.breakpoint2 - s.breakpoint1 + 1 << ";BARCODES=" << s.barcodes << ";PAIRS=" << s.pairSupport << endl;
