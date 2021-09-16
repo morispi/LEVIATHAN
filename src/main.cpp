@@ -147,7 +147,7 @@ int main(int argc, char* argv[]) {
 				printHelp();
 				break;
 		}
-		iarg = getopt_long(argc, argv, "b:i:g:r:v:n:M:L:s:m:l:o:d:t:p:B:c:C:", longopts, &index);
+		iarg = getopt_long(argc, argv, "b:i:g:r:v:n:M:L:s:m:l:o:d:t:p:B:c:C:S", longopts, &index);
 	}
 
 	if (candidatesProvided) {
