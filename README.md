@@ -116,9 +116,9 @@ Pierre Morisse, Fabrice Legeai and Claire Lemaitre.
 Reference
 --------------
 
-Pierre Morisse, Fabrice Legeai, Claire Lemaitre. LEVIATHAN: efficient discovery of large structural variants by leveraging long-range information from Linked-Reads data. https://doi.org/10.1101/2021.03.25.437002
+Pierre Morisse, Fabrice Legeai, Claire Lemaitre. LEVIATHAN: efficient discovery of large structural variants by leveraging long-range information from Linked-Reads data. BioRxiv 2021, https://doi.org/10.1101/2021.03.25.437002
 
 Contact
 --------------
 
-You can report problems and bugs to pierre[dot]morisse[at]inria[dot]fr
+You can report problems and bugs as issues on this repository : https://github.com/morispi/LEVIATHAN/issues
