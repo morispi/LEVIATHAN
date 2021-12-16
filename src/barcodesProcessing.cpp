@@ -41,7 +41,7 @@ robin_hood::unordered_map<string*, robin_hood::unordered_map<string*, unsigned>>
 	}
 	countMtx.lock();
 	processedBarcodes++;
-	fprintf(stderr, " \rProcessed %d / %d barcodes (%d%%)", processedBarcodes, totalBarcodes, (int) ((float) processedBarcodes / totalBarcodes * 100));
+	//fprintf(stderr, " Processed %d / %d barcodes (%d%%)", processedBarcodes, totalBarcodes, (int) ((float) processedBarcodes / totalBarcodes * 100));
 	countMtx.unlock();
 
 	return candidates;

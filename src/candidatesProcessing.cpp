@@ -85,7 +85,7 @@ vector<pair<pair<string*, string*>, SVSupports>> processCandidate(int id, pair<s
 
 			countMtx.lock();
 			processedCandidates++;
-			fprintf(stderr, " \rProcessed %d / %d SV candidates (%d%%)", processedCandidates, totalCandidates, (int) ((float) processedCandidates / totalCandidates * 100));
+//			fprintf(stderr, " Processed %d / %d SV candidates (%d%%)", processedCandidates, totalCandidates, (int) ((float) processedCandidates / totalCandidates * 100));
 			countMtx.unlock();
 	}
 
@@ -212,6 +212,7 @@ void removeInvalidCandidates(robin_hood::unordered_map<string*, robin_hood::unor
 			}
 		}
 	}
+	filteredCandidates.clear();
 
  }
 
