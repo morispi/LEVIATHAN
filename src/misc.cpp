@@ -45,13 +45,12 @@ vector<string> extractWindowsRegions(string contig, unsigned id, int32_t contigS
     }
     else{
         int32_t i = 0;
-        while ((i + windowSize + windowSize/2) < contigSize){
+        while ((i + windowSize) < contigSize){
             res.push_back(contig + ":" + to_string(i) + "-" + to_string(i + windowSize - 1));
             i += windowSize ;
         }
         //dealing with end of contig not being a multiple of windowSize :
-        // if what remains is <windowSize/2, the remaining is added to the previous region (the last region will be larger than windowSize = windowSize+remaining),
-        // else the remaining part constitutes the last region which whose size will be smaller than windowSize (ie. size between windowSize/2 and windowSize)
+        //if what remains is < windowSize, the remaining part constitutes the last region whose size will be smaller than windowSize
         res.push_back(contig + ":" + to_string(i) + "-" + to_string(contigSize));
     }
 	return res;
